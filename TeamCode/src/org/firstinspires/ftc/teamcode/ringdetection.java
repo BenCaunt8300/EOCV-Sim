@@ -32,7 +32,7 @@ import java.util.List;
 import static org.opencv.core.Core.inRange;
 import static org.opencv.core.Core.minMaxLoc;
 
-public class Gaming extends OpenCvPipeline {
+public class ringdetection extends OpenCvPipeline {
     boolean viewportPaused = false;
 
     /*
@@ -57,30 +57,26 @@ public class Gaming extends OpenCvPipeline {
          */
         Scalar lowerBounds;
         Scalar upperBounds;
-        if (forBlue) {
-            lowerBounds = new Scalar(60,60,10);
-            upperBounds = new Scalar(255,200,70);
-        } else {
-            lowerBounds = new Scalar(10,60,60);
-            upperBounds = new Scalar(80,100,255);
-        }
+        lowerBounds = new Scalar(0,50,150);
+        upperBounds = new Scalar(40,100,255);
+
         inRange(input,lowerBounds,upperBounds,input);
         Imgproc.GaussianBlur(input, input, new Size(5,5),0);
 
 
-        Core.MinMaxLocResult locationOfGoal = minMaxLoc(input);
-        System.out.println("target is at: x" + locationOfGoal.maxLoc.x + ", y" + locationOfGoal.maxLoc.y);
+        //Core.MinMaxLocResult locationOfGoal = minMaxLoc(input);
+        //System.out.println("target is at: x" + locationOfGoal.maxLoc.x + ", y" + locationOfGoal.maxLoc.y);
         /*
          * Draw a simple box around the middle 1/2 of the entire frame
          */
 
         Imgproc.rectangle(
                 input,
-                new Point(locationOfGoal.maxLoc.x + 40,
-                        locationOfGoal.maxLoc.y),
+                new Point(40,
+                        70),
                 new Point(
-                        locationOfGoal.maxLoc.x - 80,
-                        locationOfGoal.maxLoc.y + 40),
+                        80,
+                        40),
                 new Scalar(255, 255, 255), 4);
 
 
